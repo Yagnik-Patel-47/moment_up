@@ -1,0 +1,64 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+#__next {
+  height: 100%;
+}
+
+a {
+  display: inline-block;
+}
+
+@tailwind base;
+@tailwind components;
+.app-btn {
+  @apply text-white py-2 rounded-md px-3 uppercase bg-gradient-to-r from-blue-700 to-blue-600 md:rounded-lg font-roboto md:px-6;
+}
+@tailwind utilities;
+
+.my-masonry-grid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: auto;
+}
+
+.my-masonry-grid_column {
+  background-clip: padding-box;
+}
+
+.hide-scrollbars::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
+.hide-scrollbars::-webkit-scrollbar-track {
+  background: #a2a4aa;
+  border-radius: 10px;
+}
+
+.hide-scrollbars::-webkit-scrollbar-thumb {
+  background: #393a41;
+  border-radius: 5px;
+}
+
+.hide-scrollbars {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@media screen and (max-width: 800px) {
+  .hide-scrollbars::-webkit-scrollbar {
+    display: none;
+  }
+}
