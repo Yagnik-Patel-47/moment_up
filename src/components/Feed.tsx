@@ -44,7 +44,7 @@ const Feed: FC = () => {
   };
 
   return (
-    <div className="flex flex-col space-y-6 h-full bg-[#f0efeb] lg:px-20">
+    <div className="flex flex-col space-y-6 h-full bg-[#efefef] lg:px-20">
       <div className="w-full flex justify-between items-center px-6 mt-6">
         <div className="space-x-2 flex items-center">
           <IconButton

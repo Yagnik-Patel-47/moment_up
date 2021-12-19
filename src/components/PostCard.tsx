@@ -222,33 +222,43 @@ const PostCard: FC<Props> = ({ post, postID }: Props) => {
           />
         </CardContent>
         <CardActions>
-          <div className="w-full flex justify-between">
-            <span className="space-x-1">
-              {profile.likedPosts.includes(postID) ? (
-                <IconButton onClick={removeFromLiked}>
-                  <FavoriteIcon />
-                </IconButton>
-              ) : (
-                <IconButton onClick={addToLiked}>
-                  <FavoriteBorderIcon />
-                </IconButton>
-              )}
-              {post.likes.length !== 0 && (
+          <div className="w-full flex items-center justify-between">
+            <div className="space-x-2 items-center flex">
+              <div className="flex items-center">
+                {profile.likedPosts.includes(postID) ? (
+                  <IconButton size="small" onClick={removeFromLiked}>
+                    <FavoriteIcon />
+                  </IconButton>
+                ) : (
+                  <IconButton size="small" onClick={addToLiked}>
+                    <FavoriteBorderIcon />
+                  </IconButton>
+                )}
+                {post.likes.length !== 0 && (
+                  <IconButton
+                    onClick={() => {
+                      setLikesModalOpen(true);
+                    }}
+                    size="small"
+                    style={{ color: "rgba(0, 0, 0, 0.87)" }}
+                  >
+                    {post.likes.length}
+                  </IconButton>
+                )}
+              </div>
+              <div className="flex items-center">
                 <IconButton
-                  onClick={() => {
-                    setLikesModalOpen(true);
-                  }}
                   size="small"
+                  onClick={() => router.push(`/post/${postID}?comment=true`)}
                 >
-                  {post.likes.length}
+                  <CommentIcon />
                 </IconButton>
-              )}
-              <IconButton>
-                <CommentIcon />
-              </IconButton>
-              {post.comments.length !== 0 && (
-                <Typography variant="button">{post.comments.length}</Typography>
-              )}
+                {post.comments.length !== 0 && (
+                  <Typography variant="button">
+                    {post.comments.length}
+                  </Typography>
+                )}
+              </div>
               <Button
                 onClick={() => router.push(`/post/${postID}`)}
                 variant="outlined"
@@ -256,7 +266,7 @@ const PostCard: FC<Props> = ({ post, postID }: Props) => {
               >
                 read more
               </Button>
-            </span>
+            </div>
             {profile?.savedPosts?.includes(postID) ? (
               <IconButton onClick={removeSavedPost}>
                 <BookmarkIcon />

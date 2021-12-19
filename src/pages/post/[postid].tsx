@@ -11,12 +11,14 @@ import {
   Container,
   Divider,
   TextField,
+  Avatar,
 } from "@material-ui/core";
 import { useState } from "react";
 import SendIcon from "@material-ui/icons/Send";
 import firebase from "../../firebase";
 import Comment from "../../components/Comment";
 import AppSnackBar from "../../components/AppSnackBar";
+import moment from "moment";
 
 interface Props {
   postFound: boolean;
@@ -26,12 +28,15 @@ interface Props {
     title: string;
     description: string;
     timestamp: string;
-    user: string;
     id: string;
+  };
+  postUser: {
+    username: string;
+    photo: string;
   };
 }
 
-const PostPage = ({ postFound, data }: Props) => {
+const PostPage = ({ postFound, data, postUser }: Props) => {
   const router = useRouter();
   const [commentText, setCommentText] = useState("");
   const [comments, setComments] = useState([]);
@@ -90,7 +95,24 @@ const PostPage = ({ postFound, data }: Props) => {
           </div>
           <Container maxWidth="md">
             <div className="space-y-8 md:mt-6">
-              <span className="font-semibold text-2xl md:text-4xl">
+              <div className="flex space-x-4 items-center">
+                {postUser.photo ? (
+                  <Avatar src={postUser.photo} alt="profile image" />
+                ) : (
+                  <Avatar>{postUser.username[0].toUpperCase()}</Avatar>
+                )}
+                <Typography variant="subtitle1">
+                  <span className="font-medium text-lg text-gray-800">
+                    {postUser.username}
+                  </span>
+                </Typography>
+                <Typography variant="subtitle1">
+                  {moment(Number(data.timestamp) * 1000).format(
+                    "MMM D[,] YY h:mm A"
+                  )}
+                </Typography>
+              </div>
+              <span className="font-semibold block text-2xl md:text-4xl">
                 {data.title}
               </span>
               <p
@@ -109,6 +131,7 @@ const PostPage = ({ postFound, data }: Props) => {
                   variant="outlined"
                   label="write comment..."
                   multiline
+                  autoFocus={Boolean(router.query.comment)}
                 />
                 <IconButton onClick={postComment}>
                   <SendIcon />
@@ -166,6 +189,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   let docFound = false;
   let docData: any = {};
   let docID = "";
+  let postUserData = {
+    username: "",
+    photo: "",
+  };
 
   const post = await db
     .collection("posts")
@@ -185,8 +212,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       props: {
         postFound: false,
         data: null,
+        postUser: null,
       },
     };
+  }
+
+  if (docFound) {
+    const getUser = await db.collection("users").doc(post.data().user).get();
+    if (getUser.exists) {
+      postUserData.username = getUser.data().userName;
+      postUserData.photo = getUser.data().photo;
+    }
   }
 
   return {
@@ -198,9 +234,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         description: docData.description,
         timestamp: docData.timestamp.seconds,
         title: docData.title,
-        user: docData.user,
         id: docID,
       },
+      postUser: postUserData,
     },
   };
 };
