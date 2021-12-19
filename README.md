@@ -53,4 +53,4 @@ To run this project, you will need to add the following environment variables to
 
 ![App Screenshot](https://user-images.githubusercontent.com/74972526/146670986-aab62b65-ceb8-4d2e-a285-50489b1951aa.png)
 
-For more demonstration: https://drive.google.com/drive/folders/1dfoia8airN2b22MAhrpJv0Kz65OR0QMj?usp=sharing
+For video demo and more screenshots: https://drive.google.com/drive/folders/1dfoia8airN2b22MAhrpJv0Kz65OR0QMj?usp=sharing
