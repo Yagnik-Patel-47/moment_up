@@ -6,6 +6,7 @@ import {
   makeStyles,
   IconButton,
 } from "@material-ui/core";
+import { LoadingButton } from "@mui/lab";
 import { useState, useRef } from "react";
 import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
 import { ProfileData } from "../reducers/UpdateProfile";
@@ -37,6 +38,7 @@ const EditProfile = () => {
   const [newFullName, setNewFullName] = useState(profile.fullName);
   const [newDemoImage, setNewDemoImage] = useState<any>("");
   const newImageRef = useRef<HTMLInputElement>(null);
+  const [postLoading, setPostLoading] = useState(false);
 
   const SubmitChanges = () => {
     if (!(newUsername && newFullName)) {
@@ -49,6 +51,7 @@ const EditProfile = () => {
     }
 
     if (newImage && newImage !== profile.photo) {
+      setPostLoading(true);
       const storageRef = storage.ref(`profile_${auth.currentUser.uid}`);
       storageRef.put(newImage).on(
         "state_changed",
@@ -64,6 +67,7 @@ const EditProfile = () => {
           );
           setNewDemoImage("");
           dispatch({ type: "OPEN_SNACKBAR" });
+          setPostLoading(false);
         }
       );
     }
@@ -170,15 +174,21 @@ const EditProfile = () => {
         </div>
       </div>
       <div className="flex w-full space-x-3 justify-center">
-        <Button onClick={SubmitChanges} variant="contained" color="primary">
+        <LoadingButton
+          loading={postLoading}
+          onClick={SubmitChanges}
+          variant="contained"
+          color="primary"
+        >
           Save
-        </Button>
+        </LoadingButton>
         <Button
           onClick={() => router.back()}
           variant="outlined"
           color="secondary"
+          disabled={postLoading}
         >
-          Cancel
+          Back
         </Button>
       </div>
       <AppSnackBar type="success" message="Successfully changed your data." />

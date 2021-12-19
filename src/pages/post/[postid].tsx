@@ -71,6 +71,10 @@ const PostPage = ({ postFound, data, postUser }: Props) => {
 
   return (
     <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{data?.title}</title>
+      </Head>
       <AppSnackBar type="error" message="Please write your comment first." />
       {postFound ? (
         <div className="flex flex-col space-y-4 py-4 px-4 md:px-8 w-full">
@@ -106,7 +110,7 @@ const PostPage = ({ postFound, data, postUser }: Props) => {
                     {postUser.username}
                   </span>
                 </Typography>
-                <Typography variant="subtitle1">
+                <Typography variant="body2">
                   {moment(Number(data.timestamp) * 1000).format(
                     "MMM D[,] YY h:mm A"
                   )}
