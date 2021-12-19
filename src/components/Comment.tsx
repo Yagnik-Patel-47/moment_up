@@ -24,7 +24,7 @@ const Comment = ({ user, content }: Props) => {
       }
     });
   return (
-    <div className="md:ml-6 ml-3 space-y-3 bg-[#e3e3e3] p-4 rounded-md">
+    <div className="md:ml-6 ml-3 space-y-3 bg-[#f3f3f3] p-4 rounded-md">
       <div className="flex space-x-3 items-center">
         {userData.photo ? (
           <Avatar src={userData.photo} alt="profile image" />

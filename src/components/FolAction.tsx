@@ -55,6 +55,7 @@ const FolAction: FC<Props> = ({ type, id }: Props) => {
         {profile.userName !== data?.userName && type === "followers" && (
           <Button
             onClick={profile.following.includes(id) ? UnFollowUser : FollowUser}
+            size="small"
           >
             {profile.following.includes(id) ? "Unfollow" : "Follow"}
           </Button>
@@ -62,6 +63,7 @@ const FolAction: FC<Props> = ({ type, id }: Props) => {
         {profile.userName !== data?.userName && type === "following" && (
           <Button
             onClick={profile.following.includes(id) ? UnFollowUser : FollowUser}
+            size="small"
           >
             {profile.following.includes(id) ? "Unfollow" : "Follow"}
           </Button>

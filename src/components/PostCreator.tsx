@@ -60,7 +60,7 @@ const PostCreator: FC = () => {
 
   return (
     <Backdrop className={classes.backdrop} open={showCreateModal}>
-      <Box className="bg-[#e5e5e5] w-3/4 flex flex-col items-center space-y-4 rounded-md p-4 md:space-y-8 h-3/4 overflow-x-hidden hide-scrollbars">
+      <Box className="bg-[#e5e5e5] w-11/12 md:w-3/4 flex flex-col items-center space-y-4 rounded-md p-4 md:space-y-8 h-5/6 md:h-3/4 overflow-x-hidden hide-scrollbars">
         <div className="flex justify-between items-center p-4 w-full">
           <Typography variant="h6">Create Post</Typography>
           <IconButton

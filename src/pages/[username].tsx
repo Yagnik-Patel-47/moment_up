@@ -141,8 +141,8 @@ const ProfilePage: FC<Props> = ({ data, profileFound }: Props) => {
             <title>{data?.username}</title>
           </Head>
           <div className="flex hide-scrollbars overflow-x-hidden flex-col pt-8 md:px-16 lg:px-24 xl:px-32 w-full">
-            <div className="flex items-start justify-between">
-              <div className="flex items-center pl-4 md:pl-0 flex-col md:flex-row">
+            <div className="flex items-center px-4 md:px-0 flex-col md:flex-row">
+              <div className="flex items-center w-full justify-between">
                 <IconButton
                   onClick={() => {
                     dispatch({ type: "SHOW_SIDEBAR" });
@@ -152,86 +152,84 @@ const ProfilePage: FC<Props> = ({ data, profileFound }: Props) => {
                 >
                   <MenuIcon />
                 </IconButton>
-                <div>
-                  <Avatar
-                    src={data.photo}
-                    alt="profile image"
-                    className={classes.avatar}
-                  />
+                <Button
+                  onClick={() => {
+                    router.replace("/");
+                  }}
+                  color="primary"
+                  variant="contained"
+                  style={{ paddingRight: isMobbile ? "1rem" : 0 }}
+                >
+                  Back
+                </Button>
+              </div>
+              <div>
+                <Avatar
+                  src={data.photo}
+                  alt="profile image"
+                  className={classes.avatar}
+                />
+              </div>
+              <div className="flex mx-4 md:ml-16 my-4 md:my-6 flex-col space-y-4 items-center">
+                <div className="flex md:space-x-6 flex-col md:flex-row space-y-4 md:space-y-0 w-full">
+                  <Typography className="!text-2xl md:!text-3xl !font-light">
+                    {data.username}
+                  </Typography>
+                  {profile.email !== data.email && (
+                    <Button
+                      onClick={
+                        profile.following.includes(data.id)
+                          ? unFollowUser
+                          : followUser
+                      }
+                      style={{ outline: "none" }}
+                      variant="outlined"
+                      size={isMobbile ? "small" : "medium"}
+                    >
+                      {profile.following.includes(data.id)
+                        ? "Unfollow"
+                        : "Follow"}
+                    </Button>
+                  )}
                 </div>
-                <div className="flex mx-4 md:ml-16 my-4 md:my-6 flex-col space-y-4 items-center">
-                  <div className="flex md:space-x-6 flex-col md:flex-row space-y-4 md:space-y-0 w-full">
-                    <Typography className="!text-2xl md:!text-3xl !font-light">
-                      {data.username}
-                    </Typography>
-                    {profile.email !== data.email && (
-                      <Button
-                        onClick={
-                          profile.following.includes(data.id)
-                            ? unFollowUser
-                            : followUser
-                        }
-                        style={{ outline: "none" }}
-                        variant="outlined"
-                        size={isMobbile ? "small" : "medium"}
-                      >
-                        {profile.following.includes(data.id)
-                          ? "Unfollow"
-                          : "Follow"}
-                      </Button>
-                    )}
-                  </div>
-                  <div>
-                    <Typography
-                      variant="button"
-                      style={{ padding: "0 0.5rem" }}
-                    >
-                      {userData?.posts?.length} Posts
-                    </Typography>
-                    <Button
-                      onClick={() => {
-                        router.push(
-                          {
-                            pathname: `/${encodeURIComponent(data.username)}`,
-                            query: { modalType: "followers" },
-                          },
-                          undefined,
-                          { shallow: true }
-                        );
-                      }}
-                      style={{ outline: "none" }}
-                      size={isMobbile ? "small" : "medium"}
-                    >
-                      {userData?.followers?.length} Followers
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        router.push(
-                          {
-                            pathname: `/${encodeURIComponent(data.username)}`,
-                            query: { modalType: "following" },
-                          },
-                          undefined,
-                          { shallow: true }
-                        );
-                      }}
-                      style={{ outline: "none" }}
-                      size={isMobbile ? "small" : "medium"}
-                    >
-                      {userData?.following?.length} Following
-                    </Button>
-                  </div>
+                <div>
+                  <Typography variant="button" style={{ padding: "0 0.5rem" }}>
+                    {userData?.posts?.length} Posts
+                  </Typography>
+                  <Button
+                    onClick={() => {
+                      router.push(
+                        {
+                          pathname: `/${encodeURIComponent(data.username)}`,
+                          query: { modalType: "followers" },
+                        },
+                        undefined,
+                        { shallow: true }
+                      );
+                    }}
+                    style={{ outline: "none" }}
+                    size={isMobbile ? "small" : "medium"}
+                  >
+                    {userData?.followers?.length} Followers
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      router.push(
+                        {
+                          pathname: `/${encodeURIComponent(data.username)}`,
+                          query: { modalType: "following" },
+                        },
+                        undefined,
+                        { shallow: true }
+                      );
+                    }}
+                    style={{ outline: "none" }}
+                    size={isMobbile ? "small" : "medium"}
+                  >
+                    {userData?.following?.length} Following
+                  </Button>
                 </div>
               </div>
-              <Button
-                onClick={() => {
-                  router.back();
-                }}
-                color="primary"
-                variant="contained"
-              >
-                Back
-              </Button>
             </div>
             <div className="mt-6 h-full flex flex-col px-4">
               <Typography variant="h6">Posts</Typography>

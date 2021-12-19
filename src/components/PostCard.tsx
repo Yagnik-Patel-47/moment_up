@@ -164,16 +164,18 @@ const PostCard: FC<Props> = ({ post, postID }: Props) => {
     <>
       <Card elevation={4} className={classes.card}>
         <div className="flex items-center p-4 justify-between">
-          <Link href={`/${encodeURIComponent(uname)}`}>
-            <div className="flex items-center space-x-4">
-              {photo ? (
-                <Avatar src={photo} alt="profile image" />
-              ) : (
-                <Avatar>{uname[0]}</Avatar>
-              )}
-              <Typography>{uname}</Typography>
-            </div>
-          </Link>
+          <div className="cursor-pointer">
+            <Link href={`/${encodeURIComponent(uname)}`}>
+              <div className="flex items-center space-x-4">
+                {photo ? (
+                  <Avatar src={photo} alt="profile image" />
+                ) : (
+                  <Avatar>{uname[0]}</Avatar>
+                )}
+                <Typography>{uname}</Typography>
+              </div>
+            </Link>
+          </div>
           {profile.posts.includes(postID) && (
             <IconButton
               onClick={handleClickPopOver}
